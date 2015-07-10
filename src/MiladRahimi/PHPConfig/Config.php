@@ -17,7 +17,7 @@ class Config
      *
      * @var string
      */
-    private $name;
+    private $file;
 
     /**
      * Config directory path
@@ -43,7 +43,7 @@ class Config
     public function __construct($file = null, $directory = null)
     {
         if (!is_null($file))
-            $this->setName($file);
+            $this->setFile($file);
         if (!is_null($directory))
             $this->setDirectory($directory);
     }
@@ -76,8 +76,8 @@ class Config
     private function load()
     {
         if (!is_array($this->content)) {
-            $file = $this->directory . DIRECTORY_SEPARATOR . $this->name;
-            if (!file_exists($file))
+            $file = $this->directory . DIRECTORY_SEPARATOR . $this->file;
+            if (!file_exists($file) || is_dir($file))
                 throw new PHPConfigException("Config file not found");
             $content = include $file;
             if (!is_array($content))
@@ -89,20 +89,49 @@ class Config
     /**
      * @return string
      */
-    public function getName()
+    public function getFile()
     {
-        return $this->name;
+        return $this->file;
     }
 
     /**
-     * @param string $name
+     * @param string $file
      * @throws InvalidArgumentException
      */
-    public function setName($name)
+    public function setFile($file)
     {
-        if (!isset($name) || !is_string($name))
+        if (!isset($file) || !is_string($file))
             throw new InvalidArgumentException("Invalid file name");
-        $this->name = $name;
+        $this->file = $file;
+    }
+
+    /**
+     * Set and get the config file path
+     *
+     * @param null $path
+     * @return bool|null|string
+     * @throws PHPConfigException
+     */
+    public function path($path = null)
+    {
+        if(!is_null($path)) {
+            if (!is_string($path))
+                throw new InvalidArgumentException("Invalid config file path");
+            if (!file_exists($path) || is_dir($path))
+                throw new PHPConfigException("Invalid path");
+            $this->setDirectory(dirname($path));
+            $this->setFile(basename($path));
+            return true;
+        } else {
+            if(is_null($this->directory) && is_null($this->file))
+                return null;
+            $path = "";
+            if(!is_null($this->directory))
+                $path .= $this->directory . DIRECTORY_SEPARATOR;
+            if(!is_null($this->file))
+                $path .= $this->file;
+            return $path;
+        }
     }
 
     /**

@@ -3,17 +3,21 @@ Free PHP configuration file tools for neat and powerful projects!
 
 ## Documentation
 PHPConfig is a tiny package for access static configuration files.
-It helps you provide easy-to-use configuration files for you application.
+It helps you provide easy-to-use configuration files for your PHP project.
 
 ### Installation
 #### Using Composer
 It's strongly recommended to use [Composer](http://getcomposer.org).
 If you are not familiar with Composer, The article
-[How to use composer in php projects](http://www.miladrahimi.com/blog/2015/04/12/how-to-use-composer-in-php-projects)
+[How to use composer in php projects](http://miladrahimi.com/blog/2015/04/12/how-to-use-composer-in-php-projects)
 can be useful.
-After installing Composer, go to your project directory and run following command there:
+After installing Composer, go to your project root directory and run following command there:
 ```
 php composer.phar require miladrahimi/phpconfig
+```
+And for Windows users:
+```
+composer require miladrahimi/phpconfig
 ```
 Or if you have `composer.json` file already in your application,
 you may add this package to your application requirements
@@ -25,6 +29,10 @@ and update your dependencies:
 ```
 ```
 php composer.phar update
+```
+And for Windows users:
+```
+composer update
 ```
 #### Manually
 You can use your own autoloader as long as it follows [PSR-0](http://www.php-fig.org/psr/psr-0) or
@@ -52,15 +60,25 @@ return [
     ]
 ];
 ```
-Now you may retrieve data from the configuration file above:
+
+Now you may retrieve data from the configuration file above this way:
 ```
+use MiladRahimi\PHPConfig\Config;
+
 $config = new Config();
-$config->setDirectory(__DIR__ . "/config");
-$config->setName("database.php");
-$r = $config->get();
-print_r($r);
+$config->path(__DIR__ . DIRECTORY_SEPARATOR . "database.php");
+echo $config->get("mysql", "password");
 ```
-And the output must be:
+
+It echos `secret` string.
+
+### Getting all data
+If you pass no parameter to `Config::get()` method, it will return all configuration file data:
+```
+$all_data = $config->get();
+print_r($all_data);
+```
+The output will be:
 ```
 Array
 (
@@ -71,7 +89,6 @@ Array
             [hostname] => localhost
             [database] => shop
         )
-
     [sqlite] => Array
         (
             [filename] => path/to/db.sqlite
@@ -82,16 +99,10 @@ Array
 )
 ```
 
-### Getting all data
-As mentioned above to get all data, you can call the `Config::get()` method this way:
-```
-$all_data = $config->get();
-```
-
-### Getting single values
-You usually don't need the all data in a only one array.
+### Getting smaller arrays and single data
+You usually don't need the all data.
 What you need is single values or smaller arrays.
-To access configuration data deeper, you can pass some parameters to `Config::get()` method.
+To access configuration data deeper, you can pass more parameters to `Config::get()` method.
 ```
 $r = $config->get("mysql");
 ```
@@ -115,12 +126,33 @@ Then the output will be a single string value:
 shop
 ```
 
+### Path method
+As I mentioned above, you can pass the configuration file via `Config::path()` method.
+This method returns the set path if you call it without parameter.
+
+### Multiple files approach
+If you have multiple configuration file, there is more convenient approach to set their paths.
+Actually you can set the directory and file names separately,
+then for traversing between files,
+you only need to set file names.
+```
+use MiladRahimi\PHPConfig\Config;
+
+$config = new Config();
+$config->setDirectory(__DIR__);
+$config->setFile("database.php");
+$db = $config->get("mysql", "database");
+$config->setFile("superuser.php");
+$un = $config->get("admin", "username");
+```
+
 ### PHPConfigException
 There are some situation which this exception will be thrown.
 Here are methods and messages:
 *   `Config file not found` in `Config::get()` when the config file not exist.
 *   `Invalid config file content` in `Config::get()` when the config file has not well format.
 *   `Value not found` in `Config::get()` when the requested parameter not exist as a key in the config file.
+*   `Invalid path` in `Config::path()` when the the path is not a configuration file.
 
 ## Contributor
 *	[Milad Rahimi](http://miladrahimi.com)
@@ -129,5 +161,4 @@ Here are methods and messages:
 *   [PHPConfig](http://miladrahimi.github.io/phpconfig)
 
 ## License
-PHPConfig is created by [MiladRahimi](http://miladrahimi.com)
-and released under the [MIT License](http://opensource.org/licenses/mit-license.php).
+PHPConfig is released under the [MIT License](http://opensource.org/licenses/mit-license.php).
