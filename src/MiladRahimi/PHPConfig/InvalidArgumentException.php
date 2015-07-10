@@ -1,11 +1,11 @@
-<?php namespace Neatplex\PHPConfig;
+<?php namespace MiladRahimi\PHPConfig;
 
 /**
  * Class InvalidArgumentException
  *
  * Specified InvalidArgumentException exception for the package
  *
- * @package Neatplex\PHPConfig
+ * @package MiladRahimi\PHPConfig
  *
  * @author Milad Rahimi <info@miladrahimi.com>
  */

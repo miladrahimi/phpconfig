@@ -1,4 +1,4 @@
-<?php namespace Neatplex\PHPConfig;
+<?php namespace MiladRahimi\PHPConfig;
 
 /**
  * Class Config
@@ -6,7 +6,7 @@
  * Config class is the main package class.
  * This class helps developer to access configuration files.
  *
- * @package Neatplex\PHPConfig
+ * @package MiladRahimi\PHPConfig
  *
  * @author Milad Rahimi <info@miladrahimi.com>
  */

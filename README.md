@@ -13,14 +13,14 @@ If you are not familiar with Composer, The article
 can be useful.
 After installing Composer, go to your project directory and run following command there:
 ```
-php composer.phar require neatplex/phpconfig
+php composer.phar require miladrahimi/phpconfig
 ```
 Or if you have `composer.json` file already in your application,
 you may add this package to your application requirements
 and update your dependencies:
 ```
 "require": {
-    "neatplex/phpconfig": "~1.0"
+    "miladrahimi/phpconfig": "~1.0"
 }
 ```
 ```
@@ -130,8 +130,8 @@ Here are methods and messages:
 *	[Milad Rahimi](http://miladrahimi.com)
 
 ## Official homepage
-*   [PHPConfig](http://neatplex.com/project/phpconfig) (Soon!)
+*   [PHPConfig](http://miladrahimi.github.io/phpconfig)
 
 ## License
-PHPConfig is created by [Neatplex](http://neatplex.com)
+PHPConfig is created by [MiladRahimi](http://miladrahimi.com)
 and released under the [MIT License](http://opensource.org/licenses/mit-license.php).
