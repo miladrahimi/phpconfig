@@ -146,7 +146,7 @@ Here are methods and messages:
 *   `Value not found` in `Config::get()` when the requested parameter not exist as a key in the config file.
 *   `Invalid path` in `Config::path()` when the the path is not a configuration file.
 
-## Contributor
+## Contributors
 *	[Milad Rahimi](http://miladrahimi.com)
 
 ## Homepage
