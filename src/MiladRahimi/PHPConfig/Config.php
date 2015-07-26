@@ -2,12 +2,10 @@
 
 /**
  * Class Config
- *
  * Config class is the main package class.
  * This class helps developer to access configuration files.
  *
  * @package MiladRahimi\PHPConfig
- *
  * @author Milad Rahimi <info@miladrahimi.com>
  */
 class Config
@@ -109,7 +107,7 @@ class Config
      * Set and get the config file path
      *
      * @param null $path
-     * @return bool|null|string
+     * @return bool|string
      * @throws PHPConfigException
      */
     public function path($path = null)

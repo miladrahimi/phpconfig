@@ -24,7 +24,7 @@ you may add this package to your application requirements
 and update your dependencies:
 ```
 "require": {
-    "miladrahimi/phpconfig": "~1.0"
+    "miladrahimi/phpconfig": "~1.3"
 }
 ```
 ```
@@ -42,23 +42,23 @@ In this case you can put `src` directory content in your vendor directory.
 ### Getting Started
 First of all, you must write the configuration files.
 If you use PHP >= 5.4 you should use new PHP array syntax `[]`,
-otherwise you can use old-style array syntax `array()`.
+otherwise you must use old-style array syntax `array()`.
 See the following configuration file sample:
 ```
 <?php
-return [
-    "mysql" => [
+return array(
+    "mysql" => array(
         "username" => "milad",
         "password" => "secret",
         "hostname" => "localhost",
         "database" => "shop"
-    ],
-    "sqlite" => [
+    ),
+    "sqlite" => array(
         "filename" => "path/to/db.sqlite",
         "username" => "milad",
         "password" => "secret"
-    ]
-];
+    )
+);
 ```
 
 Now you may retrieve data from the configuration file above this way:
@@ -66,7 +66,7 @@ Now you may retrieve data from the configuration file above this way:
 use MiladRahimi\PHPConfig\Config;
 
 $config = new Config();
-$config->path(__DIR__ . DIRECTORY_SEPARATOR . "database.php");
+$config->path(__DIR__ . "/database.php");
 echo $config->get("mysql", "password");
 ```
 
