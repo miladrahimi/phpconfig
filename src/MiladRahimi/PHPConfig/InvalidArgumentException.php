@@ -9,6 +9,7 @@
  *
  * @author Milad Rahimi <info@miladrahimi.com>
  */
-class InvalidArgumentException extends \InvalidArgumentException {
+class InvalidArgumentException extends \InvalidArgumentException
+{
     // Not implemented yet!
 }

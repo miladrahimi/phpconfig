@@ -79,7 +79,7 @@ class Config
                 throw new PHPConfigException("Config file not found");
             $content = include $file;
             if (!is_array($content))
-                throw new PHPConfigException("Invalid config file content");
+                throw new PHPConfigException("Config file content is not valid");
             $this->content = $content;
         }
     }
@@ -99,7 +99,7 @@ class Config
     public function setFile($file)
     {
         if (!isset($file) || !is_string($file))
-            throw new InvalidArgumentException("Invalid file name");
+            throw new InvalidArgumentException("File must be a string value");
         $this->file = $file;
     }
 
@@ -114,9 +114,9 @@ class Config
     {
         if(!is_null($path)) {
             if (!is_string($path))
-                throw new InvalidArgumentException("Invalid config file path");
+                throw new InvalidArgumentException("Path must be a string value");
             if (!file_exists($path) || is_dir($path))
-                throw new PHPConfigException("Invalid path");
+                throw new PHPConfigException("Path must be a real file path");
             $this->setDirectory(dirname($path));
             $this->setFile(basename($path));
             return true;
@@ -147,9 +147,8 @@ class Config
     public function setDirectory($directory)
     {
         if (!isset($directory) || !is_string($directory))
-            throw new InvalidArgumentException("Invalid directory path");
+            throw new InvalidArgumentException("Directory must be a string value");
         $this->directory = $directory;
     }
-
 
 }

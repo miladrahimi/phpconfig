@@ -149,7 +149,7 @@ Here are methods and messages:
 ## Contributor
 *	[Milad Rahimi](http://miladrahimi.com)
 
-## Official homepage
+## Homepage
 *   [PHPConfig](http://miladrahimi.github.io/phpconfig)
 
 ## License

@@ -9,6 +9,7 @@
  *
  * @author Milad Rahimi <info@miladrahimi.com>
  */
-class PHPConfigException extends \Exception {
+class PHPConfigException extends \Exception
+{
     // Not implemented yet!
 }
