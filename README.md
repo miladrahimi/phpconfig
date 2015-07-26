@@ -13,10 +13,6 @@ If you are not familiar with Composer, The article
 can be useful.
 After installing Composer, go to your project root directory and run following command there:
 ```
-php composer.phar require miladrahimi/phpconfig
-```
-And for Windows users:
-```
 composer require miladrahimi/phpconfig
 ```
 Or if you have `composer.json` file already in your application,
@@ -27,10 +23,6 @@ and update your dependencies:
     "miladrahimi/phpconfig": "~1.3"
 }
 ```
-```
-php composer.phar update
-```
-And for Windows users:
 ```
 composer update
 ```
