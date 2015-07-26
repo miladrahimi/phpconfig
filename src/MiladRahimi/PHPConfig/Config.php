@@ -2,8 +2,7 @@
 
 /**
  * Class Config
- * Config class is the main package class.
- * This class helps developer to access configuration files.
+ * Config class makes set configuration file accessible for users
  *
  * @package MiladRahimi\PHPConfig
  * @author Milad Rahimi <info@miladrahimi.com>
@@ -11,14 +10,14 @@
 class Config
 {
     /**
-     * Config file name
+     * Configuration file name
      *
      * @var string
      */
     private $file;
 
     /**
-     * Config directory path
+     * Configuration directory path
      *
      * @var string
      */
@@ -32,10 +31,10 @@ class Config
     private $content;
 
     /**
-     * Construct
+     * Constructor
      *
-     * @param null $file
-     * @param null $directory
+     * @param string|null $file : Configuration file name
+     * @param string|null $directory : Configuration file directory
      * @throws InvalidArgumentException
      */
     public function __construct($file = null, $directory = null)
@@ -47,9 +46,10 @@ class Config
     }
 
     /**
-     * Get data from configuration file
+     * Get (fetch) data from configuration file
+     * Parameters are optional
      *
-     * @return array
+     * @return array|string : specified value or array of values
      * @throws PHPConfigException
      */
     public function get()
@@ -106,8 +106,8 @@ class Config
     /**
      * Set and get the config file path
      *
-     * @param null $path
-     * @return bool|string
+     * @param null|string $path : Configuration file path
+     * @return bool|string : path (string) or success (bool)
      * @throws PHPConfigException
      */
     public function path($path = null)

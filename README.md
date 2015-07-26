@@ -20,7 +20,7 @@ you may add this package to your application requirements
 and update your dependencies:
 ```
 "require": {
-    "miladrahimi/phpconfig": "~1.3"
+    "miladrahimi/phpconfig": "~1.5"
 }
 ```
 ```
