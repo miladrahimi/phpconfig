@@ -1,14 +1,19 @@
 <?php namespace MiladRahimi\PHPConfig;
 
+use MiladRahimi\PHPConfig\Exceptions\BadContentException;
+use MiladRahimi\PHPConfig\Exceptions\FileNotFoundException;
+use MiladRahimi\PHPConfig\Exceptions\InvalidArgumentException;
+use MiladRahimi\PHPConfig\Exceptions\InvalidPathException;
+use MiladRahimi\PHPConfig\Exceptions\KeyNotFoundException;
+
 /**
  * Class Config
- * Config class makes set configuration file accessible for users
+ * Config class accesses configuration files and share them via simple methods
  *
  * @package MiladRahimi\PHPConfig
- * @author Milad Rahimi <info@miladrahimi.com>
+ * @author  Milad Rahimi <info@miladrahimi.com>
  */
-class Config
-{
+class Config {
     /**
      * Configuration file name
      *
@@ -33,16 +38,16 @@ class Config
     /**
      * Constructor
      *
-     * @param string|null $file : Configuration file name
-     * @param string|null $directory : Configuration file directory
-     * @throws InvalidArgumentException
+     * @param string|null $directory Configuration file directory
+     * @param string|null $file      Configuration file name
      */
-    public function __construct($file = null, $directory = null)
-    {
-        if (!is_null($file))
+    public function __construct($directory = null, $file = null) {
+        if (!is_null($file)) {
             $this->setFile($file);
-        if (!is_null($directory))
+        }
+        if (!is_null($directory)) {
             $this->setDirectory($directory);
+        }
     }
 
     /**
@@ -50,17 +55,17 @@ class Config
      * Parameters are optional
      *
      * @return array|string : specified value or array of values
-     * @throws PHPConfigException
+     *
+     * @throws \MiladRahimi\PHPConfig\Exceptions\KeyNotFoundException
      */
-    public function get()
-    {
+    public function get() {
         $this->load();
         $r = $this->content;
         foreach (func_get_args() as $arg) {
             if (isset($r[$arg])) {
                 $r = $r[$arg];
             } else {
-                throw new PHPConfigException("Value not found");
+                throw new KeyNotFoundException();
             }
         }
         return $r;
@@ -69,17 +74,20 @@ class Config
     /**
      * Load config file
      *
-     * @throws PHPConfigException
+     * @throws BadContentException
+     * @throws FileNotFoundException
      */
-    private function load()
-    {
+    private function load() {
         if (!is_array($this->content)) {
             $file = $this->directory . DIRECTORY_SEPARATOR . $this->file;
-            if (!file_exists($file) || is_dir($file))
-                throw new PHPConfigException("Config file not found");
+            if (!file_exists($file) || is_dir($file)) {
+                throw new FileNotFoundException();
+            }
+            /** @noinspection PhpIncludeInspection */
             $content = include $file;
-            if (!is_array($content))
-                throw new PHPConfigException("Config file content is not valid");
+            if (!is_array($content)) {
+                throw new BadContentException();
+            }
             $this->content = $content;
         }
     }
@@ -87,19 +95,19 @@ class Config
     /**
      * @return string
      */
-    public function getFile()
-    {
+    public function getFile() {
         return $this->file;
     }
 
     /**
      * @param string $file
+     *
      * @throws InvalidArgumentException
      */
-    public function setFile($file)
-    {
-        if (!isset($file) || !is_string($file))
+    public function setFile($file) {
+        if (!isset($file) || !is_string($file)) {
             throw new InvalidArgumentException("File must be a string value");
+        }
         $this->file = $file;
     }
 
@@ -107,27 +115,32 @@ class Config
      * Set and get the config file path
      *
      * @param null|string $path : Configuration file path
+     *
      * @return bool|string : path (string) or success (bool)
-     * @throws PHPConfigException
+     * @throws InvalidPathException
      */
-    public function path($path = null)
-    {
-        if(!is_null($path)) {
-            if (!is_string($path))
+    public function path($path = null) {
+        if (!is_null($path)) {
+            if (!is_string($path)) {
                 throw new InvalidArgumentException("Path must be a string value");
-            if (!file_exists($path) || is_dir($path))
-                throw new PHPConfigException("Path must be a real file path");
+            }
+            if (!file_exists($path) || is_dir($path)) {
+                throw new InvalidPathException("Path must be a real file path");
+            }
             $this->setDirectory(dirname($path));
             $this->setFile(basename($path));
             return true;
         } else {
-            if(is_null($this->directory) && is_null($this->file))
+            if (is_null($this->directory) && is_null($this->file)) {
                 return null;
+            }
             $path = "";
-            if(!is_null($this->directory))
+            if (!is_null($this->directory)) {
                 $path .= $this->directory . DIRECTORY_SEPARATOR;
-            if(!is_null($this->file))
+            }
+            if (!is_null($this->file)) {
                 $path .= $this->file;
+            }
             return $path;
         }
     }
@@ -135,19 +148,19 @@ class Config
     /**
      * @return string
      */
-    public function getDirectory()
-    {
+    public function getDirectory() {
         return $this->directory;
     }
 
     /**
      * @param string $directory
+     *
      * @throws InvalidArgumentException
      */
-    public function setDirectory($directory)
-    {
-        if (!isset($directory) || !is_string($directory))
+    public function setDirectory($directory) {
+        if (!isset($directory) || !is_string($directory)) {
             throw new InvalidArgumentException("Directory must be a string value");
+        }
         $this->directory = $directory;
     }
 
