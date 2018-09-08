@@ -1,41 +1,37 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Milad Rahimi <milad.rahimi@snapp.cab>
- * Date: 9/5/2018 AD
- * Time: 14:06
- */
 
 namespace MiladRahimi\PhpConfig;
+
+use MiladRahimi\PhpConfig\Repositories\Repository;
 
 class Config
 {
     /**
-     * Configuration data
+     * Configuration repository
      *
-     * @var array
+     * @var Repository
      */
-    private $data = [];
+    private $repository;
 
     /**
      * Config constructor.
      *
-     * @param array $data
+     * @param Repository $repository
      */
-    public function __construct(array $data = [])
+    public function __construct(Repository $repository)
     {
-        $this->data = $data;
+        $this->repository = $repository;
     }
 
     /**
-     * Set
+     * Set configuration
      *
      * @param string $name
      * @param mixed $value
      */
     public function set(string $name, $value)
     {
-        $data = $this->data;
+        $data = $this->repository->getData();
 
         $keys = explode('.', $name);
 
@@ -53,19 +49,19 @@ class Config
     }
 
     /**
-     * Get
+     * Get configuration
      *
      * @param string $name
      * @param mixed $default
      * @return mixed
      */
-    public function get(string $name, $default)
+    public function get(string $name, $default = null)
     {
-        if (strpos($name, '.') === false) {
-            return $this->data[$name] ?? $default;
-        }
+        $data = $this->repository->getData();
 
-        $data = $this->data;
+        if (strpos($name, '.') === false) {
+            return $data[$name] ?? $default;
+        }
 
         foreach (explode('.', $name) as $segment) {
             if (array_key_exists($segment, $data)) {
@@ -76,5 +72,38 @@ class Config
         }
 
         return $data;
+    }
+
+    /**
+     * Check if the configuration is set
+     *
+     * @param string $name
+     * @return bool
+     */
+    public function has(string $name): bool
+    {
+        $data = $this->repository->getData();
+
+        if (strpos($name, '.') === false) {
+            return isset($data[$name]);
+        }
+
+        foreach (explode('.', $name) as $segment) {
+            if (array_key_exists($segment, $data)) {
+                $data = $data[$segment];
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @return Repository
+     */
+    public function getRepository(): Repository
+    {
+        return $this->repository;
     }
 }

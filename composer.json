@@ -18,11 +18,16 @@
         "source": "https://github.com/miladrahimi/phpconfig/issues"
     },
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-        	"MiladRahimi\\PhpConfig\\": "src/MiladRahimi/PhpConfig/"
+        	"MiladRahimi\\PhpConfig\\": "src/MiladRahimi/PhpConfig/",
+        	"MiladRahimi\\PhpConfig\\Tests\\": "tests/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.3"
     }
 }
