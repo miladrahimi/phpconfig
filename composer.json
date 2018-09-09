@@ -1,6 +1,6 @@
 {
     "name": "miladrahimi/phpconfig",
-    "description": "PHP configuration manager service",
+    "description": "A PHP configuration tool",
     "keywords": ["Configuration", "Config", "Setting"],
     "homepage": "https://github.com/miladrahimi/phpconfig",
     "type": "library",
