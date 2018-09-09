@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/miladrahimi/file-bridge-server.svg?branch=master)](https://travis-ci.com/miladrahimi/file-bridge-server)
+[![Build Status](https://travis-ci.com/miladrahimi/phpconfig.svg?branch=master)](https://travis-ci.com/miladrahimi/phpconfig)
 
 # PhpConfig
 A PHP configuration tool
