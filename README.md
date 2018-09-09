@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/miladrahimi/file-bridge-server.svg?branch=master)](https://travis-ci.com/miladrahimi/file-bridge-server)
+
 # PhpConfig
 A PHP configuration tool
 
@@ -107,7 +109,7 @@ return [
         'name' => 'Farsi (Persian)',
     ],
     'url' => 'https://example.com'
-]
+];
 ```
 
 And `mysql.php`:
@@ -120,7 +122,7 @@ return [
     'username' => 'root',
     'password' => 'secret',
     'database' => 'my_database'
-]
+];
 ```
 
 And the main code:
