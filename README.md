@@ -14,7 +14,7 @@ Run following command in the root directory of your project:
 composer require miladrahimi/phpconfig
 ```
 
-##Getting started
+## Getting started
 
 First of all, you need to provide configuration data to PhpConfig. It supports different types of repositories like php file, json file, and you can use anyone you are interested in.
 
